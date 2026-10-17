@@ -14,7 +14,15 @@ const searchInput = document.getElementById("search");
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
-    console.log("Formuläret skickades");
-    console.log(searchInput.value);
-});
 
+
+    console.log(searchInput.value);
+
+
+const searchText = searchInput.value;
+if (searchText === "") {
+    error.textContent = "Du måste skriva något!";
+    return;
+}
+console.log (searchText);
+});

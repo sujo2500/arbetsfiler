@@ -16,7 +16,7 @@ Helgplan
 Lördag (idag)
 
 ----klar---Pass 1: Git-repo och första commit. Läs sökfrasen från formuläret (steg 1).
-Pass 2: Validering av tomt fält med felmeddelande (steg 2). Commit.
+----klar---Pass 2: Validering av tomt fält med felmeddelande (steg 2). Commit.
 Pass 3: Första fetch med console.log av svaret (steg 3). Commit.
 
 Söndag
