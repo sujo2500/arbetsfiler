@@ -54,6 +54,7 @@ function showRecipe(recipeData) {
     const info = document.createElement("div");
     info.className = "recipe-info";
 
+
     const servings = document.createElement("p");
     servings.innerHTML = "<strong>Servings:</strong> " + recipeData.servings;
     info.appendChild(servings);
@@ -61,6 +62,20 @@ function showRecipe(recipeData) {
     const prepTime = document.createElement("p");
     prepTime.innerHTML = "<strong>Prep time:</strong> " + recipeData.prepTimeMinutes + " minutes";
     info.appendChild(prepTime);
+
+    const ingredientsTitle = document.createElement("h4");
+ingredientsTitle.textContent = "Ingredients";
+article.appendChild(ingredientsTitle);
+
+const ingredientsList = document.createElement("ul");
+
+for (const ingredient of recipeData.ingredients) {
+    const item = document.createElement("li");
+    item.textContent = ingredient;
+    ingredientsList.appendChild(item);
+}
+
+article.appendChild(ingredientsList);
 
     article.appendChild(info);
 
