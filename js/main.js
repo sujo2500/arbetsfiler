@@ -12,7 +12,7 @@ const recipe = document.getElementById("recipe");
 const searchInput = document.getElementById("search");
 
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
 
@@ -22,20 +22,22 @@ if (searchText === "") {
     error.textContent = "Du måste skriva något!";
     return;
 }
-fetchRecipe(searchText);
+
+ const data = await fetchRecipe(searchText);
+    showRecipe(data.recipes[0]);
 });
+
 
 
 async function fetchRecipe(searchText){
     const response = await fetch("https://dummyjson.com/recipes/search?q=" + searchText);
     const data = await response.json();
-        console.log(data.recipes[0].name);
         return data;
         
 }
 
-form.addEventListener("submit", async function (event) {
-
-    const data = await fetchRecipe(searchText);
-    showRecipe(data.recipes[0]);
-});
+function showRecipe(recipeData) {
+    const title = document.createElement("h2");
+    title.textContent = recipeData.name;
+    section.appendChild(title);
+}
