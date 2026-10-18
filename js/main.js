@@ -11,12 +11,12 @@ const sectionMessage = document.getElementById("message");
 const recipe = document.getElementById("recipe");
 const searchInput = document.getElementById("search");
 
-
+//eventlyssnare
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
 
-
+//error vid tomt sökfält
 const searchText = searchInput.value;
 if (searchText === "") {
     error.textContent = "Du måste skriva något!";
@@ -37,7 +37,30 @@ async function fetchRecipe(searchText){
 }
 
 function showRecipe(recipeData) {
-    const title = document.createElement("h2");
+    // Lådan som allt i receptet ska ligga i
+    const article = document.createElement("article");
+
+    // Receptets namn
+    const title = document.createElement("h3");
     title.textContent = recipeData.name;
-    section.appendChild(title);
+    article.appendChild(title);
+
+    // Bilden
+    const image = document.createElement("img");
+    image.src = recipeData.image;
+    image.alt = recipeData.name;
+    article.appendChild(image);
+
+    // om receptet
+    const info = document.createElement("div");
+    info.className = "recipe-info";
+
+    const servings = document.createElement("p");
+    servings.innerHTML = "<strong>Servings:</strong> " + recipeData.servings;
+    info.appendChild(servings);
+
+
+    article.appendChild(info);
+
+    recipe.appendChild(article);
 }
