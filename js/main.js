@@ -14,7 +14,8 @@ const searchInput = document.getElementById("search");
 //eventlyssnare
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
-
+    error.textContent = "";
+    recipe.textContent = "";
 
 //error vid tomt sökfält
 const searchText = searchInput.value;
@@ -24,6 +25,10 @@ if (searchText === "") {
 }
 
  const data = await fetchRecipe(searchText);
+ if (data.recipes.length === 0) {
+    sectionMessage.textContent = "inget recept hittades. Prova en annan sökfras";
+    return;
+}
     showRecipe(data.recipes[0]);
 });
 
@@ -39,35 +44,37 @@ async function fetchRecipe(searchText){
 function showRecipe(recipeData) {
     const article = document.createElement("article");
 
-    //  namn
+    //  name
     const title = document.createElement("h3");
     title.textContent = recipeData.name;
     article.appendChild(title);
 
-    // bilden
+    // image
     const image = document.createElement("img");
     image.src = recipeData.image;
     image.alt = recipeData.name;
     article.appendChild(image);
 
-    // om receptet
+    // recept info 
     const info = document.createElement("div");
     info.className = "recipe-info";
 
+    // servings
     const servings = document.createElement("p");
     servings.innerHTML = "<strong>Servings:</strong> " + recipeData.servings;
     info.appendChild(servings);
 
+    // prep time
     const prepTime = document.createElement("p");
     prepTime.innerHTML = "<strong>Prep time:</strong> " + recipeData.prepTimeMinutes + " minutes";
     info.appendChild(prepTime);
 
-    // DIN UPPGIFT: Cooking time och Difficulty (samma mönster som prepTime)
-
+    //cooking time
     const cookTime = document.createElement("p");
 cookTime.innerHTML = "<strong>Cooking time:</strong> " + recipeData.cookTimeMinutes + " minutes";
 info.appendChild(cookTime);
 
+// difficulty
 const difficulty = document.createElement("p");
 difficulty.innerHTML = "<strong>Difficulty:</strong> " + recipeData.difficulty;
 info.appendChild(difficulty);
@@ -75,7 +82,7 @@ info.appendChild(difficulty);
 
     article.appendChild(info);
 
-    // Ingredienser
+    // Ingredienses
     const ingredientsTitle = document.createElement("h4");
     ingredientsTitle.textContent = "Ingredients";
     article.appendChild(ingredientsTitle);
@@ -88,7 +95,7 @@ info.appendChild(difficulty);
     }
     article.appendChild(ingredientsList);
 
-    // Instruktioner
+    // instructions
     const instructionsTitle = document.createElement("h4");
     instructionsTitle.textContent = "Instructions";
     article.appendChild(instructionsTitle);
