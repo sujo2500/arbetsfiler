@@ -37,10 +37,9 @@ async function fetchRecipe(searchText){
 }
 
 function showRecipe(recipeData) {
-    // Lådan som allt i receptet ska ligga i
     const article = document.createElement("article");
 
-    // Receptets namn
+    // recipe name
     const title = document.createElement("h3");
     title.textContent = recipeData.name;
     article.appendChild(title);
@@ -51,7 +50,7 @@ function showRecipe(recipeData) {
     image.alt = recipeData.name;
     article.appendChild(image);
 
-    // om receptet
+    // recipe
     const info = document.createElement("div");
     info.className = "recipe-info";
 
@@ -59,6 +58,9 @@ function showRecipe(recipeData) {
     servings.innerHTML = "<strong>Servings:</strong> " + recipeData.servings;
     info.appendChild(servings);
 
+    const prepTime = document.createElement("p");
+    prepTime.innerHTML = "<strong>Prep time:</strong> " + recipeData.prepTimeMinutes + " minutes";
+    info.appendChild(prepTime);
 
     article.appendChild(info);
 
