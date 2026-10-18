@@ -1,7 +1,7 @@
 "use strict";
 /*
  * Laboration 6 - Receptsökaren
- * Namn: DITT NAMN
+ * Namn: Susan johansson
  */
 const form = document.getElementById("searchform");
 const searchbutton = document.getElementById("searchbutton");
@@ -16,13 +16,26 @@ form.addEventListener("submit", function (event) {
     event.preventDefault();
 
 
-    console.log(searchInput.value);
-
 
 const searchText = searchInput.value;
 if (searchText === "") {
     error.textContent = "Du måste skriva något!";
     return;
 }
-console.log (searchText);
+fetchRecipe(searchText);
+});
+
+
+async function fetchRecipe(searchText){
+    const response = await fetch("https://dummyjson.com/recipes/search?q=" + searchText);
+    const data = await response.json();
+        console.log(data.recipes[0].name);
+        return data;
+        
+}
+
+form.addEventListener("submit", async function (event) {
+
+    const data = await fetchRecipe(searchText);
+    showRecipe(data.recipes[0]);
 });
