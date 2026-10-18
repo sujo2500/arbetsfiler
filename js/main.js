@@ -15,36 +15,34 @@ const searchInput = document.getElementById("search");
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
     error.textContent = "";
+    sectionMessage.textContent = "";
     recipe.textContent = "";
 
-//error vid tomt sökfält
-const searchText = searchInput.value;
-if (searchText === "") {
-    error.textContent = "Du måste skriva något!";
-    return;
-}
+    const searchText = searchInput.value;
+    if (searchText === "") {
+        error.textContent = "Du måste skriva något!";
+        return;
+    }
 
- const data = await fetchRecipe(searchText);
- if (data.recipes.length === 0) {
-    sectionMessage.textContent = "inget recept hittades. Prova en annan sökfras";
-    return;
-}
-    showRecipe(data.recipes[0]);
+    try {
+        const data = await fetchRecipe(searchText);
+        if (data.recipes.length === 0) {
+            sectionMessage.textContent = "Inget recept hittades. Prova en annan sökfras.";
+            return;
+        }
+        showRecipe(data.recipes[0]);
+    } catch (fel) {
+        sectionMessage.textContent = "Nätverksproblem - felaktigt svar från servern";
+        console.log(fel);
+    }
 });
 
-
-
-async function fetchRecipe(searchText){
-    const response = await fetch("https://dummyjson.com/recipes/search?q=" + searchText);
-    const data = await response.json();
-        return data;
         
-}
-
+//show recipe
 function showRecipe(recipeData) {
     const article = document.createElement("article");
 
-    //  name
+    //  recipe name
     const title = document.createElement("h3");
     title.textContent = recipeData.name;
     article.appendChild(title);
@@ -110,4 +108,15 @@ info.appendChild(difficulty);
 
     // Sätt fast hela receptet på sidan
     recipe.appendChild(article);
+}
+
+async function fetchRecipe(searchText) {
+    const response = await fetch("https://dummyjson.com/recipes/search?q=" + searchText);
+
+    if (!response.ok) {
+        throw new Error("Nätverksproblem - felaktigt svar från servern");
+    }
+
+    const data = await response.json();
+    return data;
 }
