@@ -11,7 +11,7 @@ const sectionMessage = document.getElementById("message");
 const recipe = document.getElementById("recipe");
 const searchInput = document.getElementById("search");
 
-//eventlyssnare
+//event lstener for submit button
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
     error.textContent = "";
