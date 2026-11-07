@@ -19,10 +19,11 @@ form.addEventListener("submit", async function (event) {
     recipe.textContent = "";
 
     const searchText = searchInput.value;
-    if (searchText === "") {
+    if (searchText === "", " ") {
         error.textContent = "Du måste skriva något!";
         return;
     }
+
 
     try {
         const data = await fetchRecipe(searchText);
