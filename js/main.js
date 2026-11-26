@@ -19,7 +19,7 @@ form.addEventListener("submit", async function (event) {
     recipe.textContent = "";
 
     const searchText = searchInput.value;
-    if (searchText === "", " ") {
+    if (searchText.trim() === "") {
         error.textContent = "Du måste skriva något!";
         return;
     }
